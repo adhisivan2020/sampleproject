@@ -8,6 +8,7 @@ import subproj.*;
 public class Sample {
     GeneralClass myclass;
 
+    //constructor with dependency injection
     Sample(GeneralClass cls)
     {
         myclass = cls;
