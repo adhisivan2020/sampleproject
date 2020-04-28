@@ -6,7 +6,7 @@ pipeline {
         timeout(time: 15, unit:'MINUTES')
     }
     tools {
-        gradle 'gradle5.4'
+        gradle 'gradle-5.4'
     }
 
     environment {
