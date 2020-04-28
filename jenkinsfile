@@ -41,7 +41,7 @@ pipeline {
             {
                 error "Throws error"
             }
-            catch () {
+            catch (err) {
                 currentBuild.result = 'FAILURE'
             }
         }
