@@ -4,7 +4,7 @@ pipeline {
     options {
         disableResume()
         timeout(time: 20, unit:'MINUTES')
-        parallelAlwaysFailFast()
+        parallelsAlwaysFailFast()
     }
     tools {
         gradle 'gradle-5.4'
