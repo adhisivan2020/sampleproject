@@ -1,17 +1,34 @@
 pipeline {
     agent any
 
+    options {
+        disableResume()
+        timeout(time: 15, unit:'MINUTES')
+    }
+
     stages {
         stage('Build'){
             steps {
+                gradle clean build
                echo "Running Build"     
             }
         }
 
         stage ('Test'){
             steps {
+                gradle test
                 echo "Running Test"
             }
+        }
+    }
+
+    post {
+        failure {
+            echo "Build action failed - you can send email from here"
+        }
+
+        success {
+            echo "Build action success - proceed sending email from here"
         }
     }
 }
