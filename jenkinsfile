@@ -21,28 +21,32 @@ pipeline {
                 sh 'gradle clean build'
             }
         }
-
-    parallel {
-        stage ('Test'){
-            steps {
-                echo "Running Unit Test"
-                sh 'gradle test'
+        stage ('Run Tests') {
+            parallel {
+                stage ('Test'){
+                    steps {
+                        echo "Running Unit Test"
+                        sh 'gradle test'
+                    }
+                }
+                stage ('Integration Test'){
+                    steps {
+                        echo "Running integration Test"
+                        sh 'gradle integrationTest'
+                    }
+                }
             }
         }
-        stage ('Integration Test'){
-            steps {
-                echo "Running integration Test"
-                sh 'gradle integrationTest'
-            }
-        }
-    }
+        
         stage('Error Stage'){
-            try
-            {
-                error "Throws error"
-            }
-            catch (err) {
-                currentBuild.result = 'FAILURE'
+            steps {
+                try
+                {
+                    error "Throws error"
+                }
+                catch (err) {
+                    currentBuild.result = 'FAILURE'
+                }
             }
         }
 
