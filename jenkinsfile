@@ -5,18 +5,25 @@ pipeline {
         disableResume()
         timeout(time: 15, unit:'MINUTES')
     }
+    tools {
+        gradle 'gradle5.4'
+    }
+
+    environment {
+        CRED1 = credentials("GITID")
+    }
 
     stages {
         stage('Build'){
             steps {
-                gradle 'clean build'
+                sh 'gradle clean build'
                echo "Running Build"     
             }
         }
 
         stage ('Test'){
             steps {
-                gradle 'test'
+                sh 'gradle test'
                 echo "Running Test"
             }
         }
