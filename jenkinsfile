@@ -3,7 +3,8 @@ pipeline {
 
     options {
         disableResume()
-        timeout(time: 15, unit:'MINUTES')
+        timeout(time: 20, unit:'MINUTES')
+        parallelAlwaysFailFast()
     }
     tools {
         gradle 'gradle-5.4'
@@ -16,17 +17,35 @@ pipeline {
     stages {
         stage('Build'){
             steps {
+                echo "Running Build Sequence"     
                 sh 'gradle clean build'
-               echo "Running Build"     
             }
         }
 
+    parallel {
         stage ('Test'){
             steps {
+                echo "Running Unit Test"
                 sh 'gradle test'
-                echo "Running Test"
             }
         }
+        stage ('Integration Test'){
+            steps {
+                echo "Running integration Test"
+                sh 'gradle integrationTest'
+            }
+        }
+    }
+        stage('Error Stage'){
+            try
+            {
+                error "Throws error"
+            }
+            catch () {
+                currentBuild.result = 'FAILURE'
+            }
+        }
+
     }
 
     post {
