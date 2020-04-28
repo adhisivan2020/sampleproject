@@ -9,14 +9,14 @@ pipeline {
     stages {
         stage('Build'){
             steps {
-                gradle clean build
+                gradle 'clean build'
                echo "Running Build"     
             }
         }
 
         stage ('Test'){
             steps {
-                gradle test
+                gradle 'test'
                 echo "Running Test"
             }
         }
