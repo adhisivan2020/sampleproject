@@ -37,18 +37,6 @@ pipeline {
                 }
             }
         }
-        
-        stage('Error Stage'){
-            steps {
-                try
-                {
-                    error "Throws error"
-                }
-                catch (err) {
-                    currentBuild.result = 'FAILURE'
-                }
-            }
-        }
 
     }
 
