@@ -8,7 +8,3 @@ The project created to demonstrate following:
 4. Packaging
 5. Binary Artifact upload
 
-
-Header1 | Header2
---------|--------
-Value1  | Value2
